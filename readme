@@ -42,6 +42,8 @@ Siga as instruções abaixo a partir do seu terminal (certifique-se de estar na 
 Instale o Pytest e a extensão de mock indispensável para o projeto executando:
 ```bash
 pip install pytest pytest-mock
+
+
 ![Texto Alternativo](https://github.com/Gustavo33502/Atividade_pytest-02-06-2026/blob/main/arquivos%20readme/test%20email.png)
 
 
