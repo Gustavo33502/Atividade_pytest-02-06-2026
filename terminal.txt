@@ -1,0 +1,5 @@
+python -m pytest tests/test_notificacoes.py 
+
+$env:SMTP_USER = ""  
+$env:SMTP_PASS = ""
+$env:EMAIL_DESTINO = "" 
