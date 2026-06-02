@@ -1,0 +1,44 @@
+# Sistema de Notificações com Pytest
+
+Este projeto consiste em um **Sistema de Notificações** desenvolvido em Python para gerenciar o envio automatizado de e-mails de boas-vindas e códigos de verificação por SMS. Ele apresenta uma arquitetura totalmente desacoplada, utilizando templates padronizados, um serviço de e-mail com política de re-tentativas (mecanismo de loop) e um gerenciador centralizado responsável por rastrear o histórico de envios e realizar reenvios em caso de falhas.
+
+A validação do projeto foi inteiramente construída sobre o ecossistema **Pytest** e a extensão **Pytest-Mock**, garantindo tanto o isolamento dos testes unitários quanto a segurança nos testes de integração.
+
+---
+
+## 🛠️ Estrutura do Código Fonte (`src/`)
+
+O core do sistema está dividido em quatro módulos principais localizados dentro de `src/notificacoes/`:
+
+* **`templates.py`**: Funções puras dedicadas à construção estruturada das mensagens (assunto e corpo), parametrizando dados dinâmicos como nomes de usuários, links de segurança e valores monetários formatados (ex: `R$99.99`).
+* **`servico.py`**: Controla o envio de e-mails através do protocolo SMTP (`smtplib`). Contém uma **lógica de re-tentativas limitadas a 3 execuções** para lidar de forma resiliente com instabilidades temporárias de rede.
+* **`sms.py`**: Controla o envio de mensagens de texto baseando-se na configuração de um remetente oficial via variáveis de ambiente.
+* **`gerenciador.py`**: O componente central do sistema. Ele orquestra os disparos simultâneos (E-mail + SMS), consolida métricas através de um método de resumo, gerencia o fluxo de reenvio de falhas anteriores e oferece suporte à persistência de dados exportando o histórico da sessão em arquivos `.json` formatados.
+
+---
+
+## 🔬 Análise das Execuções de Teste (Análise dos Prints)
+
+Durante o ciclo de validação do projeto, o comportamento da suíte de testes passou por duas etapas cruciais capturadas nos logs do terminal:
+
+### 1. Erro por Ausência da Fixture (`fixture 'mocker' not found`)
+Na primeira tentativa de execução, o terminal reportou falhas do tipo `ERROR` na etapa de coleta (*setup*) de múltiplos testes em arquivos como `test_gerenciador.py` e `test_notificacoes.py`.
+
+* **Causa do problema:** O código de teste solicita a injeção do argumento `mocker` para criar dublês de teste (mocks) e isolar chamadas de rede e arquivos. Como o plugin complementar `pytest-mock` não estava instalado no ambiente Python local, o motor do Pytest desconhecia o termo e interrompia os testes antes mesmo de rodar os asserts.
+
+### 2. Resolução do Ambiente e Sucesso Geral (`PASSED` / `SKIPPED`)
+Após a instalação da biblioteca de mock adequada via gerenciador de pacotes, a execução completa da suíte de testes retornou resultados de alta confiabilidade:
+
+* **Testes Unitários (`PASSED`):** Toda a lógica interna do sistema (geração de templates, incremento correto do histórico, contagem de resumos, barramento de erros de ambiente e simulação de quedas com 3 tentativas no SMTP) funcionou perfeitamente, alcançando 100% de sucesso nos testes isolados.
+* **Proteção de Integração (`SKIPPED`):** Os testes contidos em `test_integracao.py` mudaram seu estado para *Ignorados* (`SKIPPED`). Isso evidencia o correto funcionamento do gatilho de segurança implementado: se o desenvolvedor não injetar explicitamente credenciais reais no terminal, o Pytest pula o envio real de e-mails para evitar falhas falsas na esteira de desenvolvimento local.
+
+---
+
+## 🚀 Como Realizar os Testes Individualmente e Juntos
+
+Siga as instruções abaixo a partir do seu terminal (certifique-se de estar na pasta raiz do projeto, onde residem as pastas `src` e `tests`).
+
+### Passo 1: Preparar o Ambiente
+Instale o Pytest e a extensão de mock indispensável para o projeto executando:
+```bash
+pip install pytest pytest-mock
