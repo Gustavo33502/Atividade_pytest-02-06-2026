@@ -1,3 +1,10 @@
+Prints dos testes
+
+<img width="1372" height="199" alt="teste sms" src="https://github.com/user-attachments/assets/c54db717-ae4b-435e-a974-511f2838923e" />
+<img width="1370" height="276" alt="teste gerenciador" src="https://github.com/user-attachments/assets/4362b60d-0fc0-49cb-ba79-971aa2c77d2e" />
+<img width="1370" height="449" alt="test total" src="https://github.com/user-attachments/assets/c3c066f7-12fe-4363-9be6-09d19d646565" />
+<img width="1372" height="240" alt="test email" src="https://github.com/user-attachments/assets/1e920ffe-be65-473e-9785-6368a68b04aa" />
+
 # Sistema de Notificações com Pytest
 
 Este projeto consiste em um **Sistema de Notificações** desenvolvido em Python para gerenciar o envio automatizado de e-mails de boas-vindas e códigos de verificação por SMS. Ele apresenta uma arquitetura totalmente desacoplada, utilizando templates padronizados, um serviço de e-mail com política de re-tentativas (mecanismo de loop) e um gerenciador centralizado responsável por rastrear o histórico de envios e realizar reenvios em caso de falhas.
@@ -44,7 +51,7 @@ Instale o Pytest e a extensão de mock indispensável para o projeto executando:
 pip install pytest pytest-mock
 
 
-![Texto Alternativo](https://github.com/Gustavo33502/Atividade_pytest-02-06-2026/blob/main/arquivos%20readme/test%20email.png)
+
 
 
 
