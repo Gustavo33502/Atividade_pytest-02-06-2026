@@ -43,6 +43,6 @@ Instale o Pytest e a extensão de mock indispensável para o projeto executando:
 ```bash
 pip install pytest pytest-mock
 
-![Texto Alternativo para acessibilidade](arquivo readme/test total.png)
+![Texto Alternativo para acessibilidade](./arquivo readme/test total.png)
 
 
