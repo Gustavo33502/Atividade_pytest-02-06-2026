@@ -42,3 +42,17 @@ Siga as instruções abaixo a partir do seu terminal (certifique-se de estar na 
 Instale o Pytest e a extensão de mock indispensável para o projeto executando:
 ```bash
 pip install pytest pytest-mock
+
+<div align="center">
+  <img src="./test sms.png" width="400px" alt="print">
+</div>
+<div align="center">
+  <img src="./test email.png" width="400px" alt="print">
+</div>
+<div align="center">
+  <img src="./test totalgerenciador.png" width="400px" alt="print">
+</div>
+<div align="center">
+  <img src="./test total.png" width="400px" alt="print">
+</div>
+
